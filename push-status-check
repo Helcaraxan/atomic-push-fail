@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Pushes a successfull status check to the projects' GitHub repository.
+#
+# Takes as arguments:
+# - A personal access token via the ACCESS_TOKEN environment variable.
+
+commit="$(git rev-parse HEAD)"
+
+curl -X POST \
+	-H "Authorization: token ${ACCESS_TOKEN}" \
+	-H "Content-Type: application/json" \
+	--data "{\"state\":\"success\",\"context\":\"fake-check\"}" \
+	"https://api.github.com/repos/Helcaraxan/atomic-push-fail/statuses/${commit}"
+
